@@ -1,9 +1,15 @@
 <!-- Vue Created by Administrator on 2018/9/21. -->
 <template>
   <div class="header">
-    <div class="header-left"></div>
-    <div class="header-input">输入城市/景点/游玩主题</div>
-    <div class="header-right">城市</div>
+    <div class="header-left">
+      <div class="iconfont back-icon">&#xe624;</div>
+    </div>
+    <div class="header-input">
+      <span class="iconfont">&#xe632;</span>
+        输入城市/景点/游玩主题</div>
+    <div class="header-right">城市
+      <span class="iconfont city-icon">&#xe64a;</span>
+    </div>
   </div>
 </template>
 
@@ -14,23 +20,36 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  @import "~@style/varibles.styl"
   .header
     display: flex
     height: .86rem
-    background: #00bcd4
+    background: $bg_color
+    color: #FFF
     .header-left
       width: .64rem
       float: left
+      .back-icon
+        padding-top: 0.25rem
+        text-align: center
+        font-size: .4rem
     .header-input
       flex: 1
       height: .64rem
       line-height: .64rem
       margin-top: .12rem
       margin-left: .2rem
+      padding-left: .2rem;
       border-radius: .1rem
       background: #fff
       color: #CCC
     .header-right
+      height: .64rem
+      line-height: .64rem
+      margin-top: .12rem
+      padding-left .2rem
       width: 1.24rem
       float: right
+      .city-icon
+       font-size .25rem
 </style>
