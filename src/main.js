@@ -8,8 +8,14 @@ import '@style/reset.css'
 import '@style/border.css'
 import '@style/iconfont.css'
 
+//轮播图组件
+import swiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+
 Vue.config.productionTip = false;
 fastclick.attach(document.body);
+
+Vue.use(swiper);
 
 /* eslint-disable no-new */
 new Vue({
