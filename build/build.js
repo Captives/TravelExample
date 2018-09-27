@@ -10,9 +10,8 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config')
 
-const spinner = ora('building for production...');
+const spinner = ora('building for production...'+'\n');
 spinner.start();
-
 function build(webpackConfig) {
   return new Promise(function (resolve, reject) {
     webpack(webpackConfig, (err, stats) => {
@@ -34,9 +33,9 @@ function build(webpackConfig) {
   });
 }
 
+console.log(chalk.cyan('  Building for production...\n'));
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err;
-  console.log(chalk.red('  Building for production...\n'));
   const webpackConfig = require('./webpack.prod.conf');
   const webpackConfigMin = require('./webpack.min.conf');
   Promise.all([build(webpackConfig), build(webpackConfigMin)]).then(function () {
