@@ -7,7 +7,7 @@
           <div class="icon-img">
             <img class="img" :src="item.src" :alt="item.desc"/>
           </div>
-          <p class="icon-desc">{{item.desc}}</p>
+          <p class="icon-desc">{{item.title}}</p>
         </div>
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -25,21 +25,12 @@
 
     export default {
         name: 'HomeIcons',
+        props:['list'],
         data:function () {
           return {
-            swiperOption:{},
-            list:[
-              {id:1001, desc:"景点门票",src:"http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png"},
-              {id:1002, desc:"一日游",src:"http://img1.qunarzz.com/piao/fusion/1804/5a/13ceb38dcf262f02.png"},
-              {id:1003, desc:"杭州必游",src:"http://img1.qunarzz.com/piao/fusion/1804/ff/fdf170ee89594b02.png"},
-              {id:1004, desc:"动植物园",src:"http://img1.qunarzz.com/piao/fusion/1803/76/eb88861d78fb9902.png"},
-              {id:1005, desc:"赏秋色",src:"http://img1.qunarzz.com/piao/fusion/1803/ea/01d081dacb03cc02.png"},
-              {id:1006, desc:"西湖",src:"http://img1.qunarzz.com/piao/fusion/1803/17/99402a22ce4af302.png"},
-              {id:1007, desc:"宋城千古情",src:"http://img1.qunarzz.com/piao/fusion/1803/e3/67df61427c8e1302.png"},
-              {id:1008, desc:"主题乐园",src:"http://img1.qunarzz.com/piao/fusion/1803/47/c2b659e048b11602.png"},
-              {id:1009, desc:"千岛湖",src:"http://img1.qunarzz.com/piao/fusion/1803/75/eca3ce656c886502.png"},
-              {id:1010, desc:"全部玩乐",src:"http://img1.qunarzz.com/piao/fusion/1803/80/416c6ab3368d1f02.png"}
-            ]
+            swiperOption:{
+//              pagination:'.swiper-pagination',//添加圆点
+            }
           };
         },
       computed:{
@@ -59,12 +50,26 @@
 
       }
     }
+
+/**
+ var list = [];
+ $('.mpw-swipe-wrap .mp-category-item').forEach(function (li, index) {
+  list.push({
+    id: '10'+ index,
+    title:$(li).find('img').attr('alt'),
+    src:$(li).find('img').attr('src'),
+  });
+});
+ console.log(JSON.stringify(list));
+ */
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import '~@style/varibles.styl'
   @import '~@style/mixins.styl'
-
+  /** >>> 穿透设置 **/
+  .warpper >>> .swiper-pagination-bullet-active
+    background: rgba(0,175,190,.8)
   .warpper >>> .swiper-container
     height 0
     padding-bottom 50%
