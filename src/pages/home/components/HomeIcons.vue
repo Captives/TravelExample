@@ -45,7 +45,6 @@
       computed:{
         pages:function () {
           var pages = [];
-          console.log(this.list);
           this.list.forEach(function (item, index) {
               const page = Math.floor(index/8);
               if(!pages[page]){
@@ -53,7 +52,6 @@
               }
               pages[page].push(item);
           });
-          console.log(pages);
           return pages;
         }
       },
