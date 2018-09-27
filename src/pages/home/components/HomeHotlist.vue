@@ -75,16 +75,15 @@
           };
         }
     }
-
 /**
 var list = [];
 $('.mp-hotsale-list li').forEach(function (li, index) {
-    list.push({
-    id: '10'+ index,
-    title:$(li).find('.mp-hotsale-sight').text(),
-    price:$(li).find('.mpg-price-num').text(),
-    src:$(li).find('.mp-hotsale-imgcon img').attr('src'),
-});
+   list.push({
+      id: '10'+ index,
+      title:$(li).find('.mp-hotsale-sight').text(),
+      price:$(li).find('.mpg-price-num').text(),
+      src:$(li).find('.mp-hotsale-imgcon img').attr('src'),
+  });
 });
 console.log(JSON.stringify(list));
 */
