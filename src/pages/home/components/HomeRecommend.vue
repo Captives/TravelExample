@@ -3,7 +3,7 @@
   <div class="warpper">
     <div class="title">猜你喜欢</div>
     <ul>
-      <li class="item" v-for="item in list" :key="item.id">
+      <li class="item border-bottom" v-for="item in list" :key="item.id">
           <div class="item-img-warpper">
             <img class="item-img" :src="item.src" :alt="item.desc"/>
           </div>
