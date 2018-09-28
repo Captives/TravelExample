@@ -1,7 +1,7 @@
 <!-- Vue Created by Administrator on 2018/9/25. -->
 <template>
-  <div class="warpper">
-    <swiper :options="swiperOption">
+  <div class="warpper" v-if="show">
+    <swiper :options="swiperOption" v-if="show">
       <!--slides-->
       <swiper-slide v-for="item in list" :key="item.id">
         <img class="swiper-img" :src="item.src">
@@ -23,6 +23,11 @@
           loop:true //循环
         }
       };
+    },
+    computed:{
+      show:function () {
+        return this.list.length;
+      }
     }
   }
 

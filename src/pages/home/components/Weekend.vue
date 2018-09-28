@@ -1,6 +1,6 @@
 <!-- Vue Created by Administrator on 2018/9/27. -->
 <template>
-  <div class="warpper">
+  <div class="warpper" v-if="show">
     <div class="title">周末去哪儿</div>
     <ul>
       <li class="item" v-for="item in list" :key="item.id">
@@ -17,15 +17,18 @@
 </template>
 
 <script>
-    export default {
-        name: 'HomeWeekend',
-        props:['list'],
-        data:function () {
-          return {
-
-          }
-        }
+  export default {
+    name: 'HomeWeekend',
+    props: ['list'],
+    data: function () {
+      return {}
+    },
+    computed: {
+      show: function () {
+        return this.list.length;
+      }
     }
+  }
 
 /**
  var list = [];

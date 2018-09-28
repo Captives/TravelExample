@@ -1,6 +1,6 @@
 <!-- Vue Created by Administrator on 2018/9/26. -->
 <template>
-  <div class="warpper">
+  <div class="warpper" v-if="show">
     <div class="title">猜你喜欢</div>
     <ul>
       <li class="item border-bottom" v-for="item in list" :key="item.id">
@@ -23,11 +23,14 @@
 <script>
   export default {
     name: 'HomeRecommend',
-    props:['list'],
+    props: ['list'],
     data: function () {
-      return {
-
-      };
+      return {};
+    },
+    computed: {
+      show: function () {
+        return this.list.length;
+      }
     }
   }
 

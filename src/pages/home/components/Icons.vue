@@ -1,7 +1,7 @@
 <!-- Vue Created by Administrator on 2018/9/26. -->
 <template>
   <div class="warpper">
-    <swiper :options="swiperOption">
+    <swiper :options="swiperOption" v-if="show">
       <swiper-slide v-for="(page, index) in pages" :key="index">
         <div class="icon" v-for="item in page" :key="item.id">
           <div class="icon-img">
@@ -16,20 +16,13 @@
 </template>
 
 <script>
-//数据源获取
-//  var list = [];
-//  $('.mpw-swipe-item .mp-category-item').find('img').forEach(function (img) {
-//    list.push({desc:$(img).attr('alt'), src:$(img).attr('src')});
-//  });
-//  console.log(list);
-
     export default {
         name: 'HomeIcons',
         props:['list'],
         data:function () {
           return {
             swiperOption:{
-//              pagination:'.swiper-pagination',//添加圆点
+              autoplay:false
             }
           };
         },
@@ -44,10 +37,10 @@
               pages[page].push(item);
           });
           return pages;
+        },
+        show:function () {
+          return this.list.length;
         }
-      },
-      methods:{
-
       }
     }
 
