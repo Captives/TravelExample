@@ -5,21 +5,41 @@
       <div class="area">
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
-          <div class="button"><span>杭州</span></div>
+          <div class="button" @click="clickHanlder"><span>杭州</span></div>
         </div>
       </div>
 
-      <div class="area">
+      <div class="area" v-if="historyShow" ref="历">
+        <div class="title border-topbottom">历史城市</div>
+        <div class="button-list">
+          <div class="button"
+               @click="clickHanlder"
+               v-for="item in historylist"
+               :key="item.id"><span>{{item.name}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="area" v-if="hotShow" ref="热">
         <div class="title border-topbottom">热门城市</div>
         <div class="button-list">
-          <div class="button" v-for="item in hotlist" :key="item.id"><span>{{item.name}}</span></div>
+          <div class="button"
+               @click="clickHanlder"
+               v-for="item in hotlist"
+               :key="item.id"><span>{{item.name}}</span>
+          </div>
         </div>
       </div>
 
       <div class="area" v-for="(item, key) of list" :key="key" :ref="key">
         <div class="title border-topbottom">{{key}}</div>
         <div class="item-list">
-          <div class="item border-rightbottom" v-for="addr of item" :key="addr.id"><span>{{addr.name}}</span></div>
+          <div class="item border-rightbottom"
+               @click="clickHanlder"
+               v-for="addr of item"
+               :key="addr.id">
+            <span>{{addr.name}}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -33,13 +53,29 @@
     props: {
       list:Object,
       hotlist:Array,
+      historylist:Array,
       selecteValue:String
     },
-    method: {},
+    computed:{
+      historyShow:function (e) {
+        var list = this.historylist || [];
+        return list.length;
+      },
+      hotShow:function () {
+        var list = this.hotlist || [];
+        return list.length;
+      }
+    },
+    methods: {
+      clickHanlder(e){
+        console.log(e.target);
+      }
+    },
     watch:{
       selecteValue:function () {
         if(this.selecteValue){
-          const element = this.$refs[this.selecteValue][0];
+          var $dom = this.$refs[this.selecteValue];
+          const element = $dom[0] ? $dom[0] :$dom;
           this.scroll.scrollToElement(element);
         }
       }

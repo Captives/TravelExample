@@ -27,7 +27,7 @@
       }
     },
     updated(){
-      this.startY = this.$refs['A'][0].offsetTop;
+      this.startY = this.$refs[this.list[0]][0].offsetTop;
     },
     methods: {
       clickHandler(e) {

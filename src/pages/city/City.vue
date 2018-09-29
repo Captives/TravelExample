@@ -3,7 +3,9 @@
   <div>
     <city-header></city-header>
     <city-search :list="cities"></city-search>
-    <city-list :hotlist="hotCities" :list="cities" :selecteValue="selecteValue"></city-list>
+    <city-list :hotlist="hotCities" :historylist="historylist"
+               :list="cities"
+               :selecteValue="selecteValue"></city-list>
     <alphabet :list="alphabetList" @change="alphabetChangeHandler"></alphabet>
   </div>
 </template>
@@ -27,6 +29,7 @@
         return {
           cities:{},
           hotCities:[],
+          historylist:[],
           alphabetList:[],
           selecteValue:''
         };
@@ -44,6 +47,17 @@
             this.cities = res.data.cities;
             this.hotCities = res.data.hotCities;
             this.alphabetList = Object.keys(this.cities);
+
+            this.alphabetList.unshift('热');
+            this.alphabetList.unshift('历');
+            //测试用
+            for (let i = 0; i < this.hotCities.length; i++) {
+              var index = Math.floor((Math.random() * 100) % 4);
+              var city = this.hotCities[index];
+              if (this.historylist.length < 3 &&this.historylist.indexOf(city) == -1) {
+                this.historylist.push(city);
+              }
+            }
           }
         },
         alphabetChangeHandler:function (val) {
