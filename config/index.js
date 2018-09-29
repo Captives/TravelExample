@@ -3,7 +3,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
 module.exports = {
   dev: {
     // Paths
@@ -11,7 +10,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://local.uuabc.com:8080',// 接口的域名
+        target: 'http://localhost:8080',// 接口的域名
         // secure: false,  // 如果是https接口，需要配置这个参数
         // changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {
@@ -20,7 +19,7 @@ module.exports = {
       }
     },
     // Various Dev Server settings
-    host: 'local.uuabc.com', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

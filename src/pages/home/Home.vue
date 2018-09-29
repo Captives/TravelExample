@@ -51,7 +51,6 @@
           this.weeklist = res.data.weeklist;
           this.swiperlist = res.data.swiperlist;
         }
-        console.log(res);
       }
     },
     mounted: function () {
