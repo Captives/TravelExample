@@ -6,9 +6,9 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button"><span>杭州</span></div>
-          <div class="button"><span>{{selecteValue}}</span></div>
         </div>
       </div>
+
       <div class="area">
         <div class="title border-topbottom">热门城市</div>
         <div class="button-list">

@@ -41,7 +41,7 @@
     },
     methods: {
       getHomeInfo: function () {
-        axios.get('api/index.json').then(this.homeInfo);
+        axios.get('static/data/index.json').then(this.homeInfo);
       },
       homeInfo: function (res) {
         if(res.status == 200){

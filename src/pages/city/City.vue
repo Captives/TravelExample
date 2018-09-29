@@ -36,7 +36,7 @@
       },
       methods:{
         getCityInfo:function(){
-          axios.get('/api/city.json').then(this.cityInfoHandler);
+          axios.get('static/data/city.json').then(this.cityInfoHandler);
         },
         cityInfoHandler:function (res) {
           res = res.data;

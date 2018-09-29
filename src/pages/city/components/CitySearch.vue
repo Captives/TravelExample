@@ -8,13 +8,16 @@
              placeholder="输入城市或拼音">
     </div>
 
-    <div class="search-content" ref="warpper">
+    <div class="search-content" ref="warpper" v-show="keyword">
       <div class="item-list">
         <div class="item border-rightbottom"
              v-for="item in result"
-             :key="item.id">
+             :key="item.id"
+            @click="clickHanlder">
           <span>{{item.name}}</span>
         </div>
+
+        <div class="item" v-if="!result.length"><small>没有搜索结果</small></div>
       </div>
     </div>
   </div>
@@ -50,6 +53,9 @@
         }else{
           this.result = [];
         }
+      },
+      clickHanlder(e){
+        console.log(e.target);
       }
     },
     mounted:function () {
@@ -91,6 +97,11 @@
           float left
           width 33.33%
           span
+            display block
+            line-height .76rem
+            padding-left .2rem
+            color #666
+          small
             display block
             line-height .76rem
             padding-left .2rem
