@@ -10,7 +10,7 @@
     </div>
     <router-link to="/city">
       <div class="header-right">
-        <span class="city">{{this.$store.state.city.name}}</span>
+        {{this.$store.state.city.name}}
         <span class="iconfont city-icon">&#xe64a;</span>
       </div>
     </router-link>
@@ -52,15 +52,11 @@
       height: .64rem
       line-height: .64rem
       margin-top: .12rem
-      padding-left .2rem
-      width: 1.24rem
+      min-width: 1.04rem
       float: right
       color: #FFF
-      .city
-        float left
-        max-width .7rem
-        white-space nowrap
+      padding 0 .1rem
       .city-icon
-        padding-left 0.1rem
+        padding-left .05rem
         font-size .25rem
 </style>
