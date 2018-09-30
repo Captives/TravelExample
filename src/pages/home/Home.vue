@@ -1,7 +1,7 @@
 <!-- Vue Created by Administrator on 2018/9/21. -->
 <template>
   <div>
-    <home-header></home-header>
+    <home-header :city="city"></home-header>
 
     <loading v-show="!complated"></loading>
 
@@ -38,6 +38,7 @@
     },
     data: function () {
       return {
+        city:{},
         complated: false,
         likelist: [],
         iconlist: [],
@@ -48,7 +49,7 @@
     },
     methods: {
       getHomeInfo: function () {
-        axios.get('static/data/index.json').then(this.homeInfo);
+        axios.get('static/data/index.json?city='+this.$store.state.city.name).then(this.homeInfo);
       },
       homeInfo: function (res) {
         if (res.status == 200) {
@@ -61,8 +62,15 @@
         }
       }
     },
-    mounted: function () {
+    mounted () {
+      this.city = this.$store.state.city;
       this.getHomeInfo();
+    },
+    activated(){
+      if(this.city !== this.$store.state.city){
+        this.city = this.$store.state.city;
+        this.getHomeInfo();
+      }
     }
   }
 </script>
