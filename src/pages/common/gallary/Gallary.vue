@@ -45,10 +45,10 @@
     flex-direction column
     justify-content center
     z-index 99
+    overflow hidden
     .wrapper
       height 0
       width 100%
-      background #EEE
       padding-bottom 100%
       .gallary-img
         width 100%

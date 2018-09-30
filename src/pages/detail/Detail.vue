@@ -1,7 +1,6 @@
 <template>
     <div>
       <banner></banner>
-      list
     </div>
 </template>
 
