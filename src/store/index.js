@@ -12,5 +12,8 @@ export default new Vuex.Store({
       ctx.commit('changeCity', item);
     }
   },
-  mutations: mutations
+  mutations: mutations,
+  getters:{ //getter方法集合,类似vue的computed计算方法
+
+  }
 });
