@@ -2,51 +2,42 @@
 <template>
   <div class="list" ref="warpper">
     <div>
-      <div class="area">
-        <div class="title border-topbottom">当前城市</div>
-        <div class="button-list">
-          <div class="button" @click="clickHanlder"><span>杭州</span></div>
-        </div>
-      </div>
+      <panel title='当前城市' ref=" ">
+        <city-item :value="this.$store.state.city"
+                   @click.native="clickHanlder(current)">
+        </city-item>
+      </panel>
 
-      <div class="area" v-if="historyShow" ref="历">
-        <div class="title border-topbottom">历史城市</div>
-        <div class="button-list">
-          <div class="button"
-               @click="clickHanlder"
-               v-for="item in historylist"
-               :key="item.id"><span>{{item.name}}</span>
-          </div>
-        </div>
-      </div>
+      <panel title='历史城市' v-if="historyShow" ref="历">
+        <city-item v-for="item in historylist"
+                   @click.native="clickHanlder(item)"
+                   :key="item.id":value="item">
+        </city-item>
+      </panel>
 
-      <div class="area" v-if="hotShow" ref="热">
-        <div class="title border-topbottom">热门城市</div>
-        <div class="button-list">
-          <div class="button"
-               @click="clickHanlder"
-               v-for="item in hotlist"
-               :key="item.id"><span>{{item.name}}</span>
-          </div>
-        </div>
-      </div>
+      <panel title='热门城市' v-if="hotShow" ref="热">
+        <city-item v-for="item in hotlist"
+                   @click.native="clickHanlder(item)"
+                   :key="item.id" :value="item">
+        </city-item>
+      </panel>
 
-      <div class="area" v-for="(item, key) of list" :key="key" :ref="key">
-        <div class="title border-topbottom">{{key}}</div>
-        <div class="item-list">
-          <div class="item border-rightbottom"
-               @click="clickHanlder"
-               v-for="addr of item"
-               :key="addr.id">
-            <span>{{addr.name}}</span>
-          </div>
-        </div>
-      </div>
+      <panel v-for="(item, key) of list" v-if="show" :title='key' :ref="key" :key="key">
+        <city-list-item v-for="addr in item"
+                        @click.native="clickHanlder(addr)"
+                        :key="addr.id" :value="addr">
+        </city-list-item>
+      </panel>
+
     </div>
   </div>
 </template>
 
 <script>
+  import Panel from './Panel'
+  import CityItem from './CityItem'
+  import CityListItem from './CityListItem'
+
   import BetterScroll from 'better-scroll'
   export default {
     name: 'CityList',
@@ -56,6 +47,16 @@
       historylist:Array,
       selecteValue:String
     },
+    data(){
+      return {
+        current:{}
+      }
+    },
+    components:{
+      Panel,
+      CityItem,
+      CityListItem,
+    },
     computed:{
       historyShow:function (e) {
         var list = this.historylist || [];
@@ -64,39 +65,34 @@
       hotShow:function () {
         var list = this.hotlist || [];
         return list.length;
+      },
+      show(){
+        return this.list;
       }
     },
     methods: {
-      clickHanlder(e){
-        console.log(e.target);
+      clickHanlder(item){
+        this.$store.commit('changeCity', item);
+        this.$router.push('/');
       }
     },
     watch:{
       selecteValue:function () {
         if(this.selecteValue){
           var $dom = this.$refs[this.selecteValue];
-          const element = $dom[0] ? $dom[0] :$dom;
-          this.scroll.scrollToElement(element);
+          const element = $dom[0] ? $dom[0] : $dom;
+          this.scroll.scrollToElement(element.$el);
         }
       }
     },
     mounted:function () {
+//      this.current = this.$store.state.city;
       this.scroll = new BetterScroll(this.$refs.warpper);
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  .border-topbottom
-    &:before
-      border-color #CCC
-    &:after
-      border-color #CCC
-
-  .border-rightbottom
-    &:before
-      border-color #CCC
-
   .list
     user-select none
     overflow hidden
@@ -105,35 +101,4 @@
     right 0
     bottom 0
     left 0
-    .title
-      height .64rem
-      line-height .64rem
-      background #EEEEEE
-      text-indent .2rem
-      color #666
-      font-size .26rem
-    .button-list
-      padding .1rem
-      overflow hidden
-      .button
-        float left
-        width 33.33%
-        span
-          display block
-          margin .1rem
-          padding .1rem 0
-          text-align center
-          border-radius .06rem
-          border .02rem solid #CCC
-    .item-list
-      padding .1rem
-      overflow hidden
-      .item
-        float left
-        width 33.33%
-        span
-          display block
-          line-height .76rem
-          padding-left .2rem
-          color #666
 </style>

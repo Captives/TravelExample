@@ -9,21 +9,18 @@
     </div>
 
     <div class="search-content" ref="warpper" v-show="keyword">
-      <div class="item-list">
-        <div class="item border-rightbottom"
-             v-for="item in result"
-             :key="item.id"
-            @click="clickHanlder">
-          <span>{{item.name}}</span>
-        </div>
-
-        <div class="item" v-if="!result.length"><small>没有搜索结果</small></div>
-      </div>
+      <city-list-item v-for="item in result"
+                      @click.native="clickHanlder(item)"
+                      :key="item.id"
+                      :value="item">
+      </city-list-item>
+      <div class="item item-result" v-if="show">没有搜索结果</div>
     </div>
   </div>
 </template>
 
 <script>
+  import CityListItem from './CityListItem'
   import BetterScroll from 'better-scroll'
   export default {
     name: 'CitySearch',
@@ -36,6 +33,14 @@
         result: []
       };
     },
+    components:{
+      CityListItem
+    },
+    computed:{
+      show:function () {
+        return !this.result.length;
+      }
+    },
     methods: {
       inputChange(event){
         var that = this;
@@ -44,7 +49,8 @@
           var list = [];
           for (let label in this.list) {
             this.list[label].forEach(function (item) {
-              if(item['spell'].indexOf(that.keyword) > -1 || item['name'].indexOf(that.keyword) > -1){
+              if(item['spell'].indexOf(that.keyword.toLowerCase()) > -1
+                || item['name'].indexOf(that.keyword) > -1){
                 list.push(item);
               }
             });
@@ -54,8 +60,9 @@
           this.result = [];
         }
       },
-      clickHanlder(e){
-        console.log(e.target);
+      clickHanlder(item){
+        this.$store.dispatch('changeCityAction', item);
+        this.$router.push('/');
       }
     },
     mounted:function () {
@@ -90,20 +97,8 @@
       position absolute
       z-index 1
       overflow hidden
-      .item-list
-        padding .1rem
-        overflow hidden
-        .item
-          float left
-          width 33.33%
-          span
-            display block
-            line-height .76rem
-            padding-left .2rem
-            color #666
-          small
-            display block
-            line-height .76rem
-            padding-left .2rem
-            color #666
+      .item-result
+        width 100%
+        text-align center
+        line-height 0.76rem
 </style>

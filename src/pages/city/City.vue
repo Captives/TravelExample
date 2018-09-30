@@ -15,7 +15,6 @@
     import CitySearch from './components/CitySearch'
     import CityList from './components/CityList'
     import Alphabet from './components/Alphabet'
-
     import axios from 'axios'
     export default {
         name: 'City',
@@ -50,6 +49,7 @@
 
             this.alphabetList.unshift('热');
             this.alphabetList.unshift('历');
+            this.alphabetList.unshift(' ');
             //测试用
             for (let i = 0; i < this.hotCities.length; i++) {
               var index = Math.floor((Math.random() * 100) % 4);
@@ -66,7 +66,3 @@
       }
     }
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus" scoped>
-
-</style>

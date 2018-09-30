@@ -7,6 +7,7 @@
     <home-hotlist :list="hotlist"></home-hotlist>
     <home-recommend :list="likelist"></home-recommend>
     <home-weekend :list="weeklist"></home-weekend>
+    <h-footer class="footer">版权底部</h-footer>
   </div>
 </template>
 
@@ -17,8 +18,9 @@
   import HomeRecommend from './components/Recommend'
   import HomeWeekend from './components/Weekend'
   import HomeHotlist from './components/Hotlist'
-  import axios from 'axios'
+  import HFooter from '../Footer'
 
+  import axios from 'axios'
   export default {
     name: 'Home',
     components: {
@@ -27,7 +29,8 @@
       HomeIcons,
       HomeRecommend,
       HomeWeekend,
-      HomeHotlist
+      HomeHotlist,
+      HFooter
     },
     data:function () {
       return {

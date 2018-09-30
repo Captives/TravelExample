@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import fastclick from 'fastclick'
 import router from './router'
+import store from './store/index'
+
 import '@style/reset.css'
 import '@style/border.css'
 import '@style/iconfont.css'
@@ -18,9 +20,10 @@ fastclick.attach(document.body);
 Vue.use(swiper);
 
 /* eslint-disable no-new */
-new Vue({
+window.vue = new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App),
   // components: {App},
   // template: '<App/>'

@@ -69,6 +69,7 @@
     flex-direction column
     justify-content center
     li
+      height .4rem
       line-height .4rem
       text-align center
       color $bg_color
