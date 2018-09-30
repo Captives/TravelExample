@@ -3,9 +3,15 @@
   <div>
     <city-header></city-header>
     <city-search :list="cities"></city-search>
-    <city-list :hotlist="hotCities" :historylist="historylist"
+
+    <loading v-show="!complated"></loading>
+
+    <city-list :hotlist="hotCities"
+               :historylist="historylist"
                :list="cities"
-               :selecteValue="selecteValue"></city-list>
+               :selecteValue="selecteValue"
+               v-show="complated"></city-list>
+
     <alphabet :list="alphabetList" @change="alphabetChangeHandler"></alphabet>
   </div>
 </template>
@@ -15,6 +21,8 @@
     import CitySearch from './components/CitySearch'
     import CityList from './components/CityList'
     import Alphabet from './components/Alphabet'
+    import Loading from '../Loading'
+
     import axios from 'axios'
     export default {
         name: 'City',
@@ -22,10 +30,12 @@
           CityHeader,
           CitySearch,
           CityList,
-          Alphabet
+          Alphabet,
+          Loading
         },
       data(){
         return {
+          complated: false,
           cities:{},
           hotCities:[],
           historylist:[],
@@ -58,6 +68,8 @@
                 this.historylist.push(city);
               }
             }
+
+            this.complated = true;
           }
         },
         alphabetChangeHandler:function (val) {

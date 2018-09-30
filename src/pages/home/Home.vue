@@ -1,13 +1,16 @@
 <!-- Vue Created by Administrator on 2018/9/21. -->
 <template>
   <div>
-    <home-header :city="city"></home-header>
-    <home-swiper :list="swiperlist"></home-swiper>
-    <home-icons :list="iconlist"></home-icons>
-    <home-hotlist :list="hotlist"></home-hotlist>
-    <home-recommend :list="likelist"></home-recommend>
-    <home-weekend :list="weeklist"></home-weekend>
-    <h-footer class="footer">版权底部</h-footer>
+    <home-header></home-header>
+
+    <loading v-show="!complated"></loading>
+
+    <home-swiper :list="swiperlist" v-show="complated"></home-swiper>
+    <home-icons :list="iconlist" v-show="complated"></home-icons>
+    <home-hotlist :list="hotlist" v-show="complated"></home-hotlist>
+    <home-recommend :list="likelist" v-show="complated"></home-recommend>
+    <home-weekend :list="weeklist" v-show="complated"></home-weekend>
+    <h-footer class="footer" v-show="complated">版权底部</h-footer>
   </div>
 </template>
 
@@ -19,6 +22,7 @@
   import HomeWeekend from './components/Weekend'
   import HomeHotlist from './components/Hotlist'
   import HFooter from '../Footer'
+  import Loading from '../Loading'
 
   import axios from 'axios'
   export default {
@@ -30,16 +34,16 @@
       HomeRecommend,
       HomeWeekend,
       HomeHotlist,
-      HFooter
+      HFooter, Loading
     },
-    data:function () {
+    data: function () {
       return {
-        city:'杭州',
-        likelist:[],
-        iconlist:[],
-        hotlist:[],
-        weeklist:[],
-        swiperlist:[],
+        complated: false,
+        likelist: [],
+        iconlist: [],
+        hotlist: [],
+        weeklist: [],
+        swiperlist: [],
       }
     },
     methods: {
@@ -47,12 +51,13 @@
         axios.get('static/data/index.json').then(this.homeInfo);
       },
       homeInfo: function (res) {
-        if(res.status == 200){
+        if (res.status == 200) {
           this.likelist = res.data.likelist;
           this.iconlist = res.data.iconlist;
           this.hotlist = res.data.hotlist;
           this.weeklist = res.data.weeklist;
           this.swiperlist = res.data.swiperlist;
+          this.complated = true;
         }
       }
     },
@@ -61,7 +66,3 @@
     }
   }
 </script>
-
-<style>
-
-</style>

@@ -4,14 +4,14 @@
     <div>
       <panel title='当前城市' ref=" ">
         <city-item :value="this.$store.state.city"
-                   @click.native="clickHanlder(current)">
+                   @click.native="clickHanlder()">
         </city-item>
       </panel>
 
       <panel title='历史城市' v-if="historyShow" ref="历">
         <city-item v-for="item in historylist"
                    @click.native="clickHanlder(item)"
-                   :key="item.id":value="item">
+                   :key="item.id" :value="item">
         </city-item>
       </panel>
 
@@ -42,27 +42,22 @@
   export default {
     name: 'CityList',
     props: {
-      list:Object,
-      hotlist:Array,
-      historylist:Array,
-      selecteValue:String
+      list: Object,
+      hotlist: Array,
+      historylist: Array,
+      selecteValue: String
     },
-    data(){
-      return {
-        current:{}
-      }
-    },
-    components:{
+    components: {
       Panel,
       CityItem,
       CityListItem,
     },
-    computed:{
-      historyShow:function (e) {
+    computed: {
+      historyShow: function (e) {
         var list = this.historylist || [];
         return list.length;
       },
-      hotShow:function () {
+      hotShow: function () {
         var list = this.hotlist || [];
         return list.length;
       },
@@ -72,20 +67,22 @@
     },
     methods: {
       clickHanlder(item){
-        this.$store.commit('changeCity', item);
+        if (item) {
+          this.$store.commit('changeCity', item);
+        }
         this.$router.push('/');
       }
     },
-    watch:{
-      selecteValue:function () {
-        if(this.selecteValue){
+    watch: {
+      selecteValue: function () {
+        if (this.selecteValue) {
           var $dom = this.$refs[this.selecteValue];
           const element = $dom[0] ? $dom[0] : $dom;
           this.scroll.scrollToElement(element.$el);
         }
       }
     },
-    mounted:function () {
+    mounted: function () {
 //      this.current = this.$store.state.city;
       this.scroll = new BetterScroll(this.$refs.warpper);
     }

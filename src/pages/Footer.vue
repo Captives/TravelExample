@@ -2,7 +2,7 @@
 <template>
     <footer class="footer">
         <span>- 去哪儿旅游 -</span>
-        <span class="copy">&copy;copyright 2018</span>
+        <span class="copy">&copy;Copyright 2018</span>
     </footer>
 </template>
 
