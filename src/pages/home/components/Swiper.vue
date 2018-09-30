@@ -19,7 +19,10 @@
     data: function () {
       return {
         swiperOption: {
+          autoplay:3000,
+          autoplayDisableOnInteraction:false,
           pagination:'.swiper-pagination',//添加圆点
+          paginationClickable:true,
           loop:true //循环
         }
       };
