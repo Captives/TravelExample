@@ -21,8 +21,8 @@
   import HomeRecommend from './components/Recommend'
   import HomeWeekend from './components/Weekend'
   import HomeHotlist from './components/Hotlist'
-  import HFooter from '../Footer'
-  import Loading from '../Loading'
+  import HFooter from '../common/Footer'
+  import Loading from '../common/Loading'
 
   import axios from 'axios'
   export default {

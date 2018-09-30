@@ -21,7 +21,7 @@
     import CitySearch from './components/CitySearch'
     import CityList from './components/CityList'
     import Alphabet from './components/Alphabet'
-    import Loading from '../Loading'
+    import Loading from '../common/Loading'
 
     import axios from 'axios'
     export default {
