@@ -52,6 +52,9 @@
       padding-bottom 100%
       .gallary-img
         width 100%
+    .wrapper >>> .swiper-wrapper
+      display flex
+      align-items center
     .swiper-container
       overflow inherit
     .swiper-pagination
