@@ -16,61 +16,70 @@
 </template>
 
 <script>
-    export default {
-        name: 'HomeIcons',
-        props:['list'],
-        data:function () {
-          return {
-            swiperOption:{
-              autoplay:false
-            }
-          };
-        },
-      computed:{
-        pages:function () {
-          var pages = [];
-          this.list.forEach(function (item, index) {
-              const page = Math.floor(index/8);
-              if(!pages[page]){
-                pages[page] = [];
-              }
-              pages[page].push(item);
-          });
-          return pages;
-        },
-        show:function () {
-          return this.list.length;
+  export default {
+    name: 'HomeIcons',
+    props: ['dataprovider'],
+    data: function () {
+      return {
+        swiperOption: {
+          autoplay: false
         }
+      };
+    },
+    computed: {
+      pages: function () {
+        var pages = [];
+        this.list.forEach(function (item, index) {
+          const page = Math.floor(index / 8);
+          if (!pages[page]) {
+            pages[page] = [];
+          }
+          pages[page].push(item);
+        });
+        return pages;
+      },
+      show: function () {
+        return this.list.length;
+      },
+      list: function () {
+        return this.dataprovider || [];
       }
     }
+  }
 
-/**
- var list = [];
- $('.mpw-swipe-wrap .mp-category-item').forEach(function (li, index) {
+  /**
+   var list = [];
+   $('.mpw-swipe-wrap .mp-category-item').forEach(function (li, index) {
   list.push({
     id: '10'+ index,
     title:$(li).find('img').attr('alt'),
     src:$(li).find('img').attr('src'),
   });
 });
- console.log(JSON.stringify(list));
- */
+   console.log(JSON.stringify(list));
+   */
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import '~@style/varibles.styl'
   @import '~@style/mixins.styl'
   /** >>> 穿透设置 **/
-  .warpper >>> .swiper-pagination-bullet-active
-    background: rgba(0,175,190,.8)
-  .warpper >>> .swiper-container
+  .
+  warpper > > >
+  .swiper-pagination-bullet-active
+    background: rgba(0, 175, 190, .8)
+
+  .
+  warpper > > >
+  .swiper-container
     height 0
     padding-bottom 50%
+
   .icon
     position relative
     float left
     width 25%
-    padding-bottom  25%
+    padding-bottom 25%
     .icon-img
       position absolute
       top 0

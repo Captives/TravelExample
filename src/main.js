@@ -5,6 +5,8 @@ import App from './App'
 import fastclick from 'fastclick'
 import router from './router'
 import store from './store/index'
+import VueSocketio from 'vue-socket.io'
+import socketio from 'socket.io-client'
 
 import '@style/reset.css'
 import '@style/border.css'
@@ -18,13 +20,13 @@ Vue.config.productionTip = false;
 fastclick.attach(document.body);
 
 Vue.use(swiper);
+// Vue.use(VueSocketio, 'ws://localhost:3000');
+Vue.use(VueSocketio, socketio('ws://localhost:3000',{transports: ['websocket']}), store);
 
 /* eslint-disable no-new */
 window.vue = new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App),
-  // components: {App},
-  // template: '<App/>'
+  render: h => h(App)
 });

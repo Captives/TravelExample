@@ -19,19 +19,22 @@
 <script>
   export default {
     name: 'HomeHotlist',
-    props: ['list'],
+    props: ['dataprovider'],
     data: function () {
       return {};
     },
     computed: {
       show: function () {
         return this.list.length;
+      },
+      list: function () {
+        return this.dataprovider || [];
       }
     }
   }
-/**
-var list = [];
-$('.mp-hotsale-list li').forEach(function (li, index) {
+  /**
+   var list = [];
+   $('.mp-hotsale-list li').forEach(function (li, index) {
    list.push({
       id: '10'+ index,
       title:$(li).find('.mp-hotsale-sight').text(),
@@ -39,8 +42,8 @@ $('.mp-hotsale-list li').forEach(function (li, index) {
       src:$(li).find('.mp-hotsale-imgcon img').attr('src'),
   });
 });
-console.log(JSON.stringify(list));
-*/
+   console.log(JSON.stringify(list));
+   */
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

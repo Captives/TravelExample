@@ -15,7 +15,7 @@
 <script>
   export default {
     name: 'HomeSwiper',
-    props:['list'],
+    props:['dataprovider'],
     data: function () {
       return {
         swiperOption: {
@@ -30,6 +30,9 @@
     computed:{
       show:function () {
         return this.list.length;
+      },
+      list: function () {
+        return this.dataprovider || [];
       }
     }
   }

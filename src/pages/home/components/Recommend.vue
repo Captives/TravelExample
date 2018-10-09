@@ -29,13 +29,16 @@
 <script>
   export default {
     name: 'HomeRecommend',
-    props: ['list'],
+    props: ['dataprovider'],
     data: function () {
       return {};
     },
     computed: {
       show: function () {
         return this.list.length;
+      },
+      list: function () {
+        return this.dataprovider || [];
       }
     }
   }

@@ -12,5 +12,8 @@ export default {
     "id": 125,
     "spell": "guilin",
     "name": "桂林"
-  }
+  },
+  connect:false,
+  list:{},
+  message:''
 }

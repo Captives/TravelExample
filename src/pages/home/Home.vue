@@ -5,11 +5,12 @@
 
     <loading v-show="!complated"></loading>
 
-    <home-swiper :list="swiperlist" v-show="complated"></home-swiper>
-    <home-icons :list="iconlist" v-show="complated"></home-icons>
-    <home-hotlist :list="hotlist" v-show="complated"></home-hotlist>
-    <home-recommend :list="likelist" v-show="complated"></home-recommend>
-    <home-weekend :list="weeklist" v-show="complated"></home-weekend>
+    <home-swiper :dataprovider="this.$store.state.list.swiperlist" v-show="complated"></home-swiper>
+    <home-icons :dataprovider="this.$store.state.list.iconlist" v-show="complated"></home-icons>
+    <home-hotlist :dataprovider="this.$store.state.list.hotlist" v-show="complated"></home-hotlist>
+    <home-recommend :dataprovider="this.$store.state.list.likelist" v-show="complated"></home-recommend>
+    <home-weekend :dataprovider="this.$store.state.list.weeklist" v-show="complated"></home-weekend>
+
     <h-footer class="footer" v-show="complated">版权底部</h-footer>
   </div>
 </template>
@@ -39,7 +40,7 @@
     data: function () {
       return {
         city:{},
-        complated: false,
+        complated: true,
         likelist: [],
         iconlist: [],
         hotlist: [],
@@ -49,7 +50,7 @@
     },
     methods: {
       getHomeInfo: function () {
-        axios.get('static/data/index.json?city='+this.$store.state.city.name).then(this.homeInfo);
+        axios.get('static/data/index.json?city=' + this.$store.state.city.name).then(this.homeInfo);
       },
       homeInfo: function (res) {
         if (res.status == 200) {
@@ -64,12 +65,12 @@
     },
     mounted () {
       this.city = this.$store.state.city;
-      this.getHomeInfo();
+      //this.getHomeInfo();
     },
     activated(){
       if(this.city !== this.$store.state.city){
         this.city = this.$store.state.city;
-        this.getHomeInfo();
+        //  this.getHomeInfo();
       }
     }
   }
