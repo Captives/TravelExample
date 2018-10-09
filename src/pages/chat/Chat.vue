@@ -25,7 +25,9 @@
     },
     methods: {
       changeHanlder(text){
-        this.list.push(text);
+//        this.list.push(text);
+//        this.$store.dispatch('sendMessage', text);
+        this.$socket.emit('broadcast', text);
       },
       clearHandler(){
         this.list = [];

@@ -9,20 +9,26 @@ export default {
       console.warn('Browsers disabled local storage.');
     }
   },
+  broadcast(state, item){
+    console.log('mutations # broadcast', item);
+    // this.$socket.emit('broadcast', item);
+  },//连接成功
   SOCKET_CONNECT: (state, status) => {
-    console.log('socket connected', state);
+    console.log('socket connected', state, status);
     state.connect = true;
-  },
+  },//断开
   SOCKET_DISCONNECT: (state, status) => {
     console.log('socket disconnect', status);
     state.connect = false;
-  },
+  },//登入成功
   SOCKET_SUCCESS: (state, data) => {
     state.message = data[0];
     console.log('SUCCESS', state.message);
-  },
+  },//首屏广告推送
   SOCKET_INDEX: (state, data) => {
     state.list = data[0];
-    console.log('SOCKET_INDEX', state.list);
+  },//聊天消息
+  SOCKET_BROADCAST: (state, data) => {
+    console.log('mutations # SOCKET_BROADCAST', data[0]);
   }
 }

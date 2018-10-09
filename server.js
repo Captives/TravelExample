@@ -5,6 +5,10 @@ var data = require('./static/data/index.json');
 socketServer.on('connection', function (socket) {
   console.log('new socket.id', socket.id);
   socket.emit('success', {id: socket.id, ua: socket.handshake.headers['user-agent']});
+
+  socket.on('broadcast', function (data) {
+    socketServer.sockets.emit('broadcast', data);
+  });
 });
 
 function filter(list, count) {
