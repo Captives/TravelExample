@@ -5,6 +5,9 @@ export default {
   sendMessage(context, item){
     context.commit('broadcast', item);
   },
+  clearMessage(context, item){
+    context.commit('clearMessage', item);
+  },
   socket_userMessage: (context, message) => {
     context.dispatch('newMessage', message);
     context.commit('NEW_MESSAGE_RECEIVED', message);

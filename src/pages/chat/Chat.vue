@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <chat-header class="header" @clear="clearHandler"></chat-header>
-    <chat-body class="body" :list="list"></chat-body>
+    <chat-body class="body" :list="chatList"></chat-body>
     <chat-input class="send" @change="changeHanlder"></chat-input>
   </div>
 </template>
@@ -15,7 +15,7 @@
     name: 'Chat',
     data(){
       return {
-        list: []
+        chatList: []
       }
     },
     components: {
@@ -23,14 +23,22 @@
       ChatBody,
       ChatInput
     },
+    computed:{
+      list(){
+        return this.$store.state.chatList;
+      }
+    },
+    watch:{
+      list(array){
+        this.chatList = array;
+      }
+    },
     methods: {
       changeHanlder(text){
-//        this.list.push(text);
-//        this.$store.dispatch('sendMessage', text);
         this.$socket.emit('broadcast', text);
       },
       clearHandler(){
-        this.list = [];
+        this.$store.dispatch('clearMessage');
       }
     }
   }

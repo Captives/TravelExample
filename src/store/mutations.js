@@ -12,7 +12,11 @@ export default {
   broadcast(state, item){
     console.log('mutations # broadcast', item);
     // this.$socket.emit('broadcast', item);
-  },//连接成功
+  },
+  clearMessage(state, item){
+    state.chatList = [];
+  },
+  //连接成功
   SOCKET_CONNECT: (state, status) => {
     console.log('socket connected', state, status);
     state.connect = true;
@@ -29,6 +33,6 @@ export default {
     state.list = data[0];
   },//聊天消息
   SOCKET_BROADCAST: (state, data) => {
-    console.log('mutations # SOCKET_BROADCAST', data[0]);
+    state.chatList.push(data[0]);
   }
 }

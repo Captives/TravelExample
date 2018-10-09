@@ -1,9 +1,9 @@
 var localCity = null;
-try{
-  if(localStorage.city){
+try {
+  if (localStorage.city) {
     localCity = JSON.parse(localStorage.city);
   }
-}catch(e){
+} catch (e) {
   console.warn('Browsers disabled local storage.');
 }
 
@@ -13,7 +13,8 @@ export default {
     "spell": "guilin",
     "name": "桂林"
   },
-  connect:false,
-  list:{},
-  message:''
+  connect: false,
+  list: {},
+  chatList: [],
+  message: ''
 }
