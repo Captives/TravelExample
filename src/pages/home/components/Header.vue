@@ -1,9 +1,11 @@
 <!-- Vue Created by Administrator on 2018/9/21. -->
 <template>
   <div class="header">
-    <div class="header-left">
-      <div class="iconfont back-icon">&#xe624;</div>
-    </div>
+    <router-link to="/chat">
+      <div class="header-left">
+        <div class="iconfont back-icon">&#xe624;</div>
+      </div>
+    </router-link>
     <div class="header-input">
       <span class="iconfont">&#xe632;</span>
       输入城市/景点/游玩主题
@@ -20,8 +22,8 @@
 <script>
   export default {
     name: 'HomeHeader',
-    props:{
-      city:Object
+    props: {
+      city: Object
     }
   }
 </script>
@@ -37,6 +39,7 @@
     .header-left
       width: .64rem
       float: left
+      color #FFF
       .back-icon
         padding-top: 0.25rem
         text-align: center

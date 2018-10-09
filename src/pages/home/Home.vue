@@ -80,12 +80,12 @@
     },
     mounted () {
       this.city = this.$store.state.city;
-      //this.getHomeInfo();
+      this.getHomeInfo();
     },
     activated(){
       if(this.city !== this.$store.state.city){
         this.city = this.$store.state.city;
-        //  this.getHomeInfo();
+          this.getHomeInfo();
       }
     }
   }
