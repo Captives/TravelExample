@@ -20,8 +20,8 @@ Vue.config.productionTip = false;
 fastclick.attach(document.body);
 
 Vue.use(swiper);
-// Vue.use(VueSocketio, 'ws://localhost:3000');
-Vue.use(VueSocketio, socketio('ws://localhost:3000',{transports: ['websocket']}), store);
+// Vue.use(VueSocketio, 'ws://' + window.location.hostname + ':3000');
+Vue.use(VueSocketio, socketio('ws://' + window.location.hostname + ':3000', {transports: ['websocket']}), store);
 
 /* eslint-disable no-new */
 window.vue = new Vue({

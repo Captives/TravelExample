@@ -5,11 +5,11 @@
 
     <loading v-show="!complated"></loading>
 
-    <home-swiper :dataprovider="this.$store.state.list.swiperlist" v-show="complated"></home-swiper>
-    <home-icons :dataprovider="this.$store.state.list.iconlist" v-show="complated"></home-icons>
-    <home-hotlist :dataprovider="this.$store.state.list.hotlist" v-show="complated"></home-hotlist>
-    <home-recommend :dataprovider="this.$store.state.list.likelist" v-show="complated"></home-recommend>
-    <home-weekend :dataprovider="this.$store.state.list.weeklist" v-show="complated"></home-weekend>
+    <home-swiper :dataprovider="swiperlist" v-show="complated"></home-swiper>
+    <home-icons :dataprovider="iconlist" v-show="complated"></home-icons>
+    <home-hotlist :dataprovider="hotlist" v-show="complated"></home-hotlist>
+    <home-recommend :dataprovider="likelist" v-show="complated"></home-recommend>
+    <home-weekend :dataprovider="weeklist" v-show="complated"></home-weekend>
 
     <h-footer class="footer" v-show="complated">版权底部</h-footer>
   </div>
@@ -40,12 +40,27 @@
     data: function () {
       return {
         city:{},
-        complated: true,
+        complated: false,
         likelist: [],
         iconlist: [],
         hotlist: [],
         weeklist: [],
         swiperlist: [],
+      }
+    },
+    computed:{
+      list(){
+        return this.$store.state.list || [];
+      }
+    },
+    watch:{
+      list(data){
+          this.complated = true;
+          this.likelist = data['likelist'];
+          this.iconlist = data['iconlist'];
+          this.hotlist = data['hotlist'];
+          this.weeklist = data['weeklist'];
+          this.swiperlist = data['swiperlist'];
       }
     },
     methods: {
