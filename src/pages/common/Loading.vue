@@ -19,5 +19,6 @@
     text-indent .121rem
     height 3rem
     width 100%
+    padding .5rem 0
     text-align center
 </style>
