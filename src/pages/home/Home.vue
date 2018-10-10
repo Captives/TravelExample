@@ -1,22 +1,36 @@
 <!-- Vue Created by Administrator on 2018/9/21. -->
 <template>
   <div>
-    <home-header :city="city"></home-header>
+    <navigator-bar>
+      <action-button slot="back" class="iconfont" to="/chat">&#xe624;</action-button>
 
-    <loading v-show="!complated"></loading>
+      <router-link class="header-title" slot="title" to="/about" tag="div">
+        <span class="iconfont">&#xe632;</span>输入城市/景点/游玩主题
+      </router-link>
 
-    <home-swiper :dataprovider="swiperlist" v-show="complated"></home-swiper>
-    <home-icons :dataprovider="iconlist" v-show="complated"></home-icons>
-    <home-hotlist :dataprovider="hotlist" v-show="complated"></home-hotlist>
-    <home-recommend :dataprovider="likelist" v-show="complated"></home-recommend>
-    <home-weekend :dataprovider="weeklist" v-show="complated"></home-weekend>
+      <router-link class="header-right" slot="action" to="city" tag="div">
+        {{this.$store.state.city.name}} <span class="iconfont">&#xe64a;</span>
+      </router-link>
+    </navigator-bar>
 
-    <h-footer class="footer" v-show="complated">版权底部</h-footer>
+    <div class="content">
+      <loading v-show="!complated"></loading>
+
+      <home-swiper :dataprovider="swiperlist" v-show="complated"></home-swiper>
+      <home-icons :dataprovider="iconlist" v-show="complated"></home-icons>
+      <home-hotlist :dataprovider="hotlist" v-show="complated"></home-hotlist>
+      <home-recommend :dataprovider="likelist" v-show="complated"></home-recommend>
+      <home-weekend :dataprovider="weeklist" v-show="complated"></home-weekend>
+
+      <h-footer class="footer" v-show="complated">版权底部</h-footer>
+    </div>
   </div>
 </template>
 
 <script>
-  import HomeHeader from './components/Header'
+  import ActionButton from './../common/ActionButton'
+  import NavigatorBar from './../common/NavigatorBar'
+
   import HomeSwiper from './components/Swiper'
   import HomeIcons from './components/Icons'
   import HomeRecommend from './components/Recommend'
@@ -29,7 +43,8 @@
   export default {
     name: 'Home',
     components: {
-      HomeHeader,
+      ActionButton,
+      NavigatorBar,
       HomeSwiper,
       HomeIcons,
       HomeRecommend,
@@ -64,8 +79,8 @@
       }
     },
     methods: {
-      getHomeInfo: function () {
-        axios.get('static/data/index.json?city=' + this.$store.state.city.name).then(this.homeInfo);
+      getHomeInfo: function (city) {
+        axios.get('static/data/index.json?city=' + city.name).then(this.homeInfo);
       },
       homeInfo: function (res) {
         if (res.status == 200) {
@@ -80,13 +95,29 @@
     },
     mounted () {
       this.city = this.$store.state.city;
-      this.getHomeInfo();
+      this.getHomeInfo(this.city);
     },
     activated(){
-      if(this.city !== this.$store.state.city){
+      if(this.city !== this.$store.state.city && this.$store.state.connect == false){
         this.city = this.$store.state.city;
-          this.getHomeInfo();
+          this.getHomeInfo(this.city);
       }
     }
   }
 </script>
+<style lang="stylus" rel="stylesheet/stylus" scoped>
+  .content
+    position absolute
+    top 0.86rem
+    left 0
+    right 0
+    bottom 0
+    overflow-x hidden
+    overflow-y auto
+  .header-title
+    margin-right .2rem
+    padding-left: .2rem;
+    border-radius: .1rem
+    background: #fff
+    color: #CCC
+</style>

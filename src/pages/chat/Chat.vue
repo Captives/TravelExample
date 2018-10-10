@@ -1,13 +1,21 @@
 <template>
   <div class="wrapper">
-    <chat-header class="header" @clear="clearHandler"></chat-header>
+    <navigator-bar>
+      <action-button slot="back" class="iconfont" to="/">
+        &#xe624;
+      </action-button>
+      <span slot="title">聊 天</span>
+      <action-button slot="action" @click="clearHandler">清屏</action-button>
+    </navigator-bar>
+
     <chat-body class="body" :list="chatList"></chat-body>
     <chat-input class="send" @change="changeHanlder"></chat-input>
   </div>
 </template>
 
 <script>
-  import ChatHeader from './components/Header'
+  import ActionButton from './../common/ActionButton'
+  import NavigatorBar from './../common/NavigatorBar'
   import ChatBody from './components/ChatBody'
   import ChatInput from './components/ChatInput'
 
@@ -19,7 +27,8 @@
       }
     },
     components: {
-      ChatHeader,
+      ActionButton,
+      NavigatorBar,
       ChatBody,
       ChatInput
     },
@@ -50,7 +59,7 @@
   .body
     position absolute
     top 0.86rem
-    bottom .66rem
+    bottom .86rem
     left 0
     right 0
   .send

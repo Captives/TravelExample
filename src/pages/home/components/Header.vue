@@ -6,10 +6,13 @@
         <div class="iconfont back-icon">&#xe624;</div>
       </div>
     </router-link>
-    <div class="header-input">
-      <span class="iconfont">&#xe632;</span>
-      输入城市/景点/游玩主题
-    </div>
+
+    <router-link to="/about" class="header-input" tag="div">
+        <span class="iconfont">&#xe632;</span>
+        输入城市/景点/游玩主题
+    </router-link>
+
+
     <router-link to="/city">
       <div class="header-right">
         {{city.name}}
