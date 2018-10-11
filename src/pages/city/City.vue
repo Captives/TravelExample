@@ -4,7 +4,7 @@
     <navigator-bar>
       <action-button slot="back" class="iconfont" to="/">&#xe624;
       </action-button>
-      <div class="header-title" slot="title">选择城市</div>
+      <div slot="title">选择城市</div>
       <city-search :list="cities" slot="extend"></city-search>
     </navigator-bar>
 
@@ -21,24 +21,17 @@
 </template>
 
 <script>
-  import ActionButton from './../common/ActionButton'
-  import NavigatorBar from './../common/NavigatorBar'
-
   import CitySearch from './components/CitySearch'
   import CityList from './components/CityList'
   import Alphabet from './components/Alphabet'
-  import Loading from '../common/Loading'
 
   import axios from 'axios'
   export default {
     name: 'City',
     components: {
-      ActionButton,
-      NavigatorBar,
       CitySearch,
       CityList,
-      Alphabet,
-      Loading
+      Alphabet
     },
     data(){
       return {
@@ -85,8 +78,4 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus" scoped>
-  .header-title
-    text-align: center
-</style>
 

@@ -14,8 +14,6 @@
 </template>
 
 <script>
-  import ActionButton from './../common/ActionButton'
-  import NavigatorBar from './../common/NavigatorBar'
   import ChatBody from './components/ChatBody'
   import ChatInput from './components/ChatInput'
 
@@ -27,8 +25,6 @@
       }
     },
     components: {
-      ActionButton,
-      NavigatorBar,
       ChatBody,
       ChatInput
     },

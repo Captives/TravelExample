@@ -20,6 +20,7 @@ export default {
   SOCKET_CONNECT: (state, status) => {
     console.log('socket connected', state, status);
     state.connect = true;
+    console.log(state.$message);
   },//断开
   SOCKET_DISCONNECT: (state, status) => {
     console.log('socket disconnect', status);

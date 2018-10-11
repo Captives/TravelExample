@@ -2,10 +2,10 @@
 <template>
   <div>
     <navigator-bar>
-      <action-button slot="back" class="iconfont" to="/chat">&#xe624;</action-button>
+      <action-button slot="back" class="iconfont back" to="/chat">&#xe624;</action-button>
 
       <router-link class="header-title" slot="title" to="/about" tag="div">
-        <span class="iconfont">&#xe632;</span>输入城市/景点/游玩主题
+        <span class="iconfont">&#xe632;</span>  输入城市/景点/游玩主题
       </router-link>
 
       <router-link class="header-right" slot="action" to="city" tag="div">
@@ -28,29 +28,22 @@
 </template>
 
 <script>
-  import ActionButton from './../common/ActionButton'
-  import NavigatorBar from './../common/NavigatorBar'
-
   import HomeSwiper from './components/Swiper'
   import HomeIcons from './components/Icons'
   import HomeRecommend from './components/Recommend'
   import HomeWeekend from './components/Weekend'
   import HomeHotlist from './components/Hotlist'
   import HFooter from '../common/Footer'
-  import Loading from '../common/Loading'
 
   import axios from 'axios'
   export default {
     name: 'Home',
     components: {
-      ActionButton,
-      NavigatorBar,
       HomeSwiper,
       HomeIcons,
       HomeRecommend,
       HomeWeekend,
       HomeHotlist,
-      HFooter, Loading
     },
     data: function () {
       return {
@@ -106,6 +99,9 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  .back
+    font-weight bold
+    vertical-align: middle;
   .content
     position absolute
     top 0.86rem
@@ -120,4 +116,5 @@
     border-radius: .1rem
     background: #fff
     color: #CCC
+    text-align left
 </style>

@@ -44,6 +44,7 @@
         ellipsis()
       .title
         flex 1
+        text-align center
     .tbody
       width 100%
       display: flex
