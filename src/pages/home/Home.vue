@@ -116,5 +116,6 @@
     border-radius: .1rem
     background: #fff
     color: #CCC
+    letter-spacing: 0;
     text-align left
 </style>

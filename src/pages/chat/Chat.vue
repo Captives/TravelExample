@@ -50,8 +50,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  .header
-    height 0.86rem
   .body
     position absolute
     top 0.86rem

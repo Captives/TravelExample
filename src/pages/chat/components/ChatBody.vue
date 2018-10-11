@@ -28,7 +28,6 @@
   .wrapper
     overflow-x hidden
     overflow-y auto
-    background #EEEEEE
     .none
       text-align center
       margin-top .5rem

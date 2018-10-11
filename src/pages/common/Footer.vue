@@ -1,8 +1,12 @@
 <!-- Vue Created by Administrator on 2018/9/30. -->
 <template>
     <footer class="footer">
+        <div class="info">
+          <action-button to="/login">登录</action-button>
+          <action-button to="/register">注册</action-button>
+        </div>
         <span>- 去哪儿旅游 -</span>
-        <span class="copy">&copy;Copyright 2018</span>
+        <span class="copy">&copy;Copyright 2000 - 2018</span>
     </footer>
 </template>
 
@@ -17,7 +21,7 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .footer
     width 100%
-    height 1.3rem
+    min-height 1.3rem
     background #EEEEEE
     color #666
     span
@@ -26,7 +30,14 @@
       width 100%
       text-align center
       display: inline-block;
+    .info
+      display inline-block
+      width 100%
+      span
+        display block
+        float left
+        padding 0
+        width 50%
     .copy
-      height .3rem
-      line-height .3rem
+      padding-bottom .1rem
 </style>

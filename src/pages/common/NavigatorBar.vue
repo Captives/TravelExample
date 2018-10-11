@@ -30,7 +30,7 @@
   @import "~@style/mixins.styl"
   .header
     color: #FFF
-    background: $bg_color
+    background: $them_color
     min-height: .66rem
     line-height: .66rem
     padding: .1rem
@@ -44,6 +44,7 @@
         ellipsis()
       .title
         flex 1
+        letter-spacing: .05rem;
         text-align center
     .tbody
       width 100%

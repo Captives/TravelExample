@@ -38,7 +38,6 @@
   @import "~@style/varibles.styl"
   .wrapper
     height .66rem
-    background #EEEEEE
     display flex
     padding 0.11rem
     .input
@@ -51,5 +50,5 @@
       color #ff0000
     button
       width 1rem
-      background $bg_color
+      background $them_color
 </style>
