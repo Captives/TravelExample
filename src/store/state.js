@@ -8,6 +8,7 @@ try {
 }
 
 export default {
+  login:false,
   city: localCity || {
     "id": 125,
     "spell": "guilin",

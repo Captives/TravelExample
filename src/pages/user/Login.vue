@@ -12,21 +12,21 @@
           <div class="form-control">
             <label class="control-label">手机号</label>
             <div class="control-container">
-              <input type="tel" maxlength="11" name="mobile" placeholder="请输入手机号" autocomplete="off">
+              <input type="tel" maxlength="11" name="mobile" placeholder="请输入手机号" autocomplete="off" value="13388886666">
             </div>
           </div>
 
-          <div class="form-control last" ng-class="{last:!needCaptcha_mobile}">
+          <div class="form-control last">
             <label class="control-label">验证码</label>
             <div class="control-container">
-              <input maxlength="6" ng-pattern="/[0-9]{0,6}/"
-                     autocomplete="off" name="randcode" placeholder="请输入验证码">
+              <input maxlength="6" ng-pattern="/[0-9]{0,6}/" autocomplete="off" name="randcode"
+                     placeholder="请输入验证码" value="021580">
               <a class="qrcode">获取验证码</a>
             </div>
           </div>
         </div>
 
-        <base-button label="登录"></base-button>
+        <base-button label="登录" @click="submitHandler"></base-button>
     </div>
   </div>
 </template>
@@ -35,7 +35,11 @@
   export default {
     name: 'Login',
     components: {},
-    methods: {}
+    methods: {
+      submitHandler(){
+        this.$store.state.login = true;
+      }
+    }
   }
 </script>
 

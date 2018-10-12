@@ -2,7 +2,7 @@
 <template>
     <footer class="footer">
         <div class="info">
-          <action-button to="/login">登录</action-button>
+          <action-button @click="loginHandler">登录</action-button>
           <action-button to="/register">注册</action-button>
         </div>
         <span>- 去哪儿旅游 -</span>
@@ -14,7 +14,11 @@
     export default {
         name: 'Footer',
         components: {},
-        methods: {}
+        methods: {
+          loginHandler(){
+            this.$store.state.login = false;
+          }
+        }
     }
 </script>
 

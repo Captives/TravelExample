@@ -1,14 +1,24 @@
 <template>
   <div id="app" class="wrapper">
     <keep-alive>
-      <router-view/>
+      <router-view v-if="show"/>
     </keep-alive>
+    <login v-if="!show"></login>
   </div>
 </template>
 
 <script>
+  import Login from './pages/user/Login.vue'
   export default {
-    name: 'App'
+    name: 'App',
+    components:{
+      Login
+    },
+    computed:{
+      show(){
+        return this.$store.state.login;
+      }
+    }
   }
 </script>
 
