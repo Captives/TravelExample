@@ -35,6 +35,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .box
+    position: fixed;
     background rgba(0, 0, 0, 0.75)
     display flex
     flex-direction column
