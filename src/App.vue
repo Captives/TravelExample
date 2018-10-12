@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="wrapper">
+  <div id="app" class="fill">
     <keep-alive>
       <router-view v-if="show"/>
     </keep-alive>
@@ -22,14 +22,27 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus">
   @import '~@style/varibles.styl'
-  .wrapper
+  .nav
+    color: #FFF
+    background: $them_color
+    min-height: .66rem
+    line-height: .66rem
+    padding: .1rem
+
+  .fill,.content
+    background $them_bg_color
     position: absolute;
-    width 100%
-    height 100%
+    top 0
+    bottom 0
+    left 0
+    right 0
     padding 0
     margin 0
-  #app
-    background $them_bg_color
+
+  .content
+    top 0.86rem
+    overflow-x hidden
+    overflow-y auto
 </style>

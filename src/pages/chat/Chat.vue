@@ -56,9 +56,13 @@
     bottom .86rem
     left 0
     right 0
+    overflow-x hidden
+    overflow-y auto
   .send
+    top: inherit;
     bottom 0
     left 0
     right 0
+    height .66rem
     position absolute
 </style>

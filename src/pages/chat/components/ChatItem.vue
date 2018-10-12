@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="box">
         <slot></slot>
     </div>
 </template>
@@ -13,7 +13,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  .wrapper
+  .box
     padding: 0.2rem 0.1rem;
     word-break: break-all;
     line-height: .35rem;

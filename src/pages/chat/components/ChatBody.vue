@@ -1,6 +1,6 @@
 <!-- Vue Created by Administrator on 2018/10/9. -->
 <template>
-  <div class="wrapper">
+  <div class="fill">
     <item class="none" v-if="!show">暂无消息</item>
     <item v-for="(item, index) in list" :key="index" v-if="show">{{item}}</item>
   </div>
@@ -25,9 +25,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  .wrapper
-    overflow-x hidden
-    overflow-y auto
     .none
       text-align center
       margin-top .5rem

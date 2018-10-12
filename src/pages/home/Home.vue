@@ -1,6 +1,6 @@
 <!-- Vue Created by Administrator on 2018/9/21. -->
 <template>
-  <div>
+  <div class="fill">
     <navigator-bar>
       <action-button slot="back" class="iconfont back" to="/chat">&#xe624;</action-button>
 

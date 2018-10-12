@@ -1,12 +1,13 @@
 <!-- Vue Created by Administrator on 2018/10/11. -->
 <template>
-  <div class="wrapper">
+  <div class="fill">
     <navigator-bar>
       <action-button slot="back" class="iconfont" to="/">
         &#xe624;
       </action-button>
       <span slot="title">登录</span>
     </navigator-bar>
+
     <div class="content">
         <div class="form">
           <div class="form-control">

@@ -1,6 +1,6 @@
 <!-- Vue Created by Administrator on 2018/10/9. -->
 <template>
-  <div class="wrapper">
+  <div class="fill box">
     <input class="input" placeholder="请输入信息" v-model="text" v-show="!show">
     <span class="input error" v-show="show">发送消息内容不能为空</span>
     <button class="send" @click="sendMessage">发送</button>
@@ -36,10 +36,10 @@
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "~@style/varibles.styl"
-  .wrapper
-    height .66rem
+  .box
     display flex
     padding 0.11rem
+    background #EEEEEE
     .input
       flex 1
       height .64rem

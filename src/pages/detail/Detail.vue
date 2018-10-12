@@ -1,14 +1,16 @@
 <template>
-    <div>
+  <div class="fill">
+    <div class="content">
       <banner></banner>
-      <navigator-bar class="nav">
-        <action-button slot="back" class="iconfont" to="/">
-          &#xe624;
-        </action-button>
-        <span slot="title">详情页</span>
-      </navigator-bar>
 
     </div>
+    <navigator-bar>
+      <action-button slot="back" class="iconfont" to="/">
+        &#xe624;
+      </action-button>
+      <span slot="title">详情页</span>
+    </navigator-bar>
+  </div>
 </template>
 
 <script>
@@ -17,8 +19,7 @@
         name: 'Detail',
         components: {
           Banner
-        },
-        methods: {}
+        }
     }
 </script>
 
@@ -26,6 +27,9 @@
   .nav
     position absolute
     top 0
-    z-index 5
+    z-index 3
     width 100%
+  .content
+    top:0
+
 </style>

@@ -1,6 +1,6 @@
 <!-- Vue Created by Administrator on 2018/10/11. -->
 <template>
-  <div class="wrapper">
+  <div class="fill">
     <navigator-bar>
       <action-button slot="back" class="iconfont" to="/">
         &#xe624;
