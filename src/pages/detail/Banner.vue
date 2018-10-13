@@ -2,7 +2,7 @@
   <div>
     <div class="banner" @click="showGallaryHandler(true)">
       <img class="prew" src="//img1.qunarzz.com/sight/p0/1707/62/62981f052681ef5ba3.img.jpg_600x330_1183c2d2.jpg"
-           alt="上海海洋水族馆">
+           alt="上海中心大厦">
       <div class="banner-info">
         <span class="title">上海中心大厦</span>
         <span class="count"><span class="iconfont">&#xe691;</span>4</span>

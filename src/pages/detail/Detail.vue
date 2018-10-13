@@ -11,7 +11,7 @@
       <action-button slot="back" class="iconfont" to="/">
         &#xe624;
       </action-button>
-      <span slot="title">详情页</span>
+      <span slot="title">上海中心大厦</span>
     </navigator-bar>
 
     <action-button class="iconfont navback" to="/" v-show="!show">
@@ -37,6 +37,7 @@
       document.querySelector('.content').addEventListener("scroll", this.scrollHandler);
     },
     deactivated(){
+      this.show = false,
       document.querySelector('.content').removeEventListener("scroll", this.scrollHandler);
     },
     methods:{
