@@ -45,4 +45,8 @@
     top 0.86rem
     overflow-x hidden
     overflow-y auto
+    -webkit-overflow-scrolling:touch
+
+  #app
+    position fixed
 </style>
