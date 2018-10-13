@@ -48,5 +48,6 @@
     -webkit-overflow-scrolling:touch
 
   #app
+    user-select none
     position fixed
 </style>

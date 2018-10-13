@@ -37,8 +37,8 @@
 
   .thead
     display: flex
-    height: .66rem
-    line-height: .66rem
+    height: .65rem
+    line-height: .65rem
     .button
       min-width: 0.5rem
       max-width: 1.5rem

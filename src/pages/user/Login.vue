@@ -2,7 +2,7 @@
 <template>
   <div class="fill">
     <navigator-bar>
-      <action-button slot="back" class="iconfont" to="/">
+      <action-button slot="back" class="iconfont" @click="backHandler">
         &#xe624;
       </action-button>
       <span slot="title">登录</span>
@@ -37,6 +37,10 @@
     name: 'Login',
     components: {},
     methods: {
+      backHandler(){
+        console.log('back');
+        window.history.back();
+      },
       submitHandler(){
         this.$store.state.login = true;
       }

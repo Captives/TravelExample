@@ -60,7 +60,7 @@
 
   .list
     user-select none
-    position absolute
+    position fixed
     top 1.59rem
     right 0
     bottom 0
