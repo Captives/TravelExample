@@ -38,7 +38,6 @@
     components: {},
     methods: {
       backHandler(){
-        console.log('back');
         window.history.back();
       },
       submitHandler(){
