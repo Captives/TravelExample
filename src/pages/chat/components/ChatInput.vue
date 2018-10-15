@@ -40,6 +40,8 @@
     display flex
     padding 0.11rem
     background #EEEEEE
+    .send
+      color: #FFF
     .input
       flex 1
       height .64rem

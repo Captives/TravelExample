@@ -83,7 +83,7 @@
       }
     },
     mounted: function () {
-//      this.current = this.$store.state.city;
+//    this.current = this.$store.state.city;
       this.scroll = new BetterScroll(this.$refs.warpper);
     }
   }
@@ -99,6 +99,10 @@
     bottom 0
     left 0
 
-  .panel-body .item:nth-of-type(3n)::before
+  .panel-body
+    .item:nth-of-type(3n)::before
       border-right none
+    .item:nth-child(3n+1):nth-last-child(-n+3)::after
+    .item:nth-child(3n+1):nth-last-child(-n+3)~.item::after
+      border-bottom none
 </style>
