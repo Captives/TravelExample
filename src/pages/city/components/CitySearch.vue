@@ -94,8 +94,13 @@
     position absolute
     z-index 1
     overflow hidden
+
     .item-result
       width 100%
       text-align center
       line-height 0.76rem
+
+    .item:nth-of-type(3n)::before
+      border-right none
+
 </style>

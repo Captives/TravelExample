@@ -22,7 +22,7 @@
         </city-item>
       </panel>
 
-      <panel v-for="(item, key) of list" v-if="show" :title='key' :ref="key" :key="key">
+      <panel class="citylist" v-for="(item, key) of list" v-if="show" :title='key' :ref="key" :key="key">
         <city-list-item v-for="addr in item"
                         @click.native="clickHanlder(addr)"
                         :key="addr.id" :value="addr">
@@ -99,4 +99,6 @@
     bottom 0
     left 0
 
+  .panel-body .item:nth-of-type(3n)::before
+      border-right none
 </style>
