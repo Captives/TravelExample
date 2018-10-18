@@ -8,6 +8,7 @@ import Home from '@/pages/home/Home'
 import City from '@/pages/city/City'
 import Chat from '@/pages/chat/Chat'
 import Detail from '@/pages/detail/Detail'
+import Goods from '@/pages/goods/Goods'
 
 Vue.use(Router);
 
@@ -36,6 +37,10 @@ export default new Router({
     path: '/detail/:id',
     name: 'Detail',
     component: Detail
+  },{
+    path: '/goods/:id',
+    name: 'Goods',
+    component: Goods
   },{
     path: '*',
     name: 'NotFound',

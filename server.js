@@ -34,3 +34,4 @@ setInterval(function () {
 }, 1000 * 60);
 
 httpServer.listen(3000);
+console.log('去哪儿旅游服务启动完成');

@@ -3,7 +3,7 @@
   <div class="warpper" v-if="show">
     <div class="title">本周热门榜单</div>
     <ul>
-      <li class="item" v-for="item in list" :key="item.id">
+      <router-link class="item" tag="li" v-for="item in list" :key="item.id" :to="'/goods/' + item.id">
         <div class="item-img-warpper">
           <img class="item-img" :src="item.src" :alt="item.desc"/>
         </div>
@@ -11,7 +11,7 @@
           <p class="icon-title">{{item.title}}</p>
           <p class="icon-price"><span>￥{{item.price}}</span>起</p>
         </div>
-      </li>
+      </router-link>
     </ul>
   </div>
 </template>

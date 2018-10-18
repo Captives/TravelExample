@@ -40,7 +40,7 @@
     },
     methods: {
       changeHanlder(text){
-        this.$socket.emit('broadcast', text);
+        this.sendMessage('broadcast', text);
       },
       clearHandler(){
         this.$store.dispatch('clearMessage');

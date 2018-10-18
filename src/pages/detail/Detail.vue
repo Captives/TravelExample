@@ -37,7 +37,7 @@
       document.querySelector('.content').addEventListener("scroll", this.scrollHandler);
     },
     deactivated(){
-      this.show = false,
+      this.show = false;
       document.querySelector('.content').removeEventListener("scroll", this.scrollHandler);
     },
     methods:{
