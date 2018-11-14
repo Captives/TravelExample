@@ -20,7 +20,7 @@
                            placeholder="请选择">
 
                   <el-option label="所有人" value=""></el-option>
-                  <el-option v-for="item in users" :label="item.userName" :value="item.uuid" :key="item.uuid"></el-option>
+                  <el-option v-for="item in list" :label="item.userName" :value="item.uuid" :key="item.uuid"></el-option>
                 </el-select>
 
                 <el-button slot="append" icon="el-icon-message" @click="textSendHandler">发送</el-button>
@@ -30,7 +30,7 @@
 
           <el-aside width="300px">
             <ul>
-              <li v-for="item in users" :label="item.userName" :value="item.uuid" :key="item.uuid">
+              <li v-for="item in list" :label="item.userName" :value="item.uuid" :key="item.uuid">
                 <el-button icon="el-icon-message" @click="sendToUser(item)">{{item.userName}}</el-button>
               </li>
             </ul>
@@ -48,15 +48,10 @@
           return {
             chatList:[],
             input5: '',
-            select: '',
-            userList: []
+            select: ''
           };
         },
         computed:{
-          users(){
-            console.log(JSON.stringify(this.list), this.userList);
-            return this.list.concat(this.userList);
-          },
           userInfo(){
             return this.user || {region:{}};
           }
@@ -64,12 +59,12 @@
       mounted(){
         var that = this;
         this.$socket.on('userEntry', function(data){
-          that.userList.push({uuid: data.uuid, userName: data.userName, name: data.name});
+          that.list.push({uuid: data.uuid, userName: data.userName, name: data.name});
         });
         this.$socket.on('userLeave', function(data){
-          for(var i=0; i< that.userList.length; i++){
-            if(that.userList[i].value === data.id){
-              that.userList.splice(i, 1);
+          for(var i=0; i< that.list.length; i++){
+            if(that.list[i].uuid === data.uuid){
+              that.list.splice(i, 1);
             }
           }
           console.log('userLeave', data);

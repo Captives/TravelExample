@@ -140,7 +140,7 @@ SocketCluster.prototype.roomListen = function () {
 
 //socket断开的处理
 SocketCluster.prototype.onDisconnect = function (socket, info) {
-  socketServer.to(socket.rid).emit('userLeave', socket.joinInfo);
+  socketServer.to(socket.td).emit('userLeave', socket.joinInfo);
 };
 
 const util = require('util');
