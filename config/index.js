@@ -80,7 +80,7 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report
   },
   redis: {
-    host: 'ws.uuabc.com',
+    host: 'seven.uuabc.com',
     port: 6379,
     password: '123456'
   }

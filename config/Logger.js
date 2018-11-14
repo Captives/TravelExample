@@ -42,7 +42,7 @@ function replaceConsole(logger, name) {
     warn: logger.warn,
     error: logger.error,
     fatal: logger.fatal,
-    includeTime: true,
+    includeTime: false,
     includeLevel: true,
     includeLabel: true,
     includeMethod: false,
@@ -95,7 +95,7 @@ function replaceConsole(logger, name) {
   };
 
   logger.log = function () {
-    Logger.log.apply(logger, arguments);
+    // Logger.log.apply(logger, arguments);
     Logger.trace("[LOG]", stackInfo(), Logger.color.default, arguments);
   };
 
@@ -123,14 +123,9 @@ function replaceConsole(logger, name) {
 }
 
 /******************************* Logger *******************************/
-// var conf = require('./../conf/conf');
-// var logAppenders = conf.logAppenders;
-// var logStdout = conf.logStdout;
-// logconfig.appenders = logAppenders || logconfig.appenders;
-
 var log4js = require('log4js');
 log4js.configure(logconfig);
-var getLogger = function (name, replace) {
+var getLogger = function (name) {
   var logger = log4js.getLogger(name);
   name = name || "default";
   replaceConsole(logger, name);
