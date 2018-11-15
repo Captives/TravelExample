@@ -9,6 +9,12 @@ var socketServer = null;
 
 const NameSpace = {DEFAULT: '/'};
 module.exports = SocketCluster;
+
+/**
+ * @param server  HTTPServer
+ * @param path instance
+ * @constructor
+ */
 function SocketCluster(server, path) {
   var that = this;
   socketServer = io().listen(server, {
@@ -56,6 +62,7 @@ SocketCluster.prototype.onConnection = function (socket) {
     socket.td = region.id;
     socket.joinInfo = {
       uuid: socket.id,
+      pid: process.pid,
       id: region.id,
       name: region.label,
       userName: name
@@ -64,6 +71,18 @@ SocketCluster.prototype.onConnection = function (socket) {
     that.roomManagement(socket);
     callback(socket.joinInfo);
   });
+
+  socket.on('chat', function (text, id) {
+    if (id) {
+      socket.to(id).emit('chat', {user:socket.joinInfo, text:text});
+    } else {
+      socket.to(socket.td).emit('chat', {user:socket.joinInfo, text:text});
+    }
+  });
+
+  socket.on('share', function (data) {
+    socketServer.to(socket.td).emit('share', data);
+  });
 };
 
 //房间管理
@@ -71,7 +90,7 @@ SocketCluster.prototype.roomManagement = function (socket) {
   var that = this;
   that.roomListen();
   that.getClient(socket.td).then(function (clients) {
-    return that.roomMember(clients);
+    return that.roomMember(socket.td, clients);
   }).then(function (members) {
     console.log(socket.td, '已经在线的用户', JSON.stringify(members));
     socket.join(socket.td);
@@ -90,11 +109,11 @@ SocketCluster.prototype.getClient = function (td) {
   });
 };
 
-SocketCluster.prototype.roomMember = function (clients) {
-  var data = {event: 'member', clients: clients};
+SocketCluster.prototype.roomMember = function (td, clients) {
+  var data = {event: 'member', clients: clients, td:td};
   return new Promise(function (resolve, reject) {
     socketServer.of(NameSpace.DEFAULT).adapter.customRequest(data, function (err, replies) {
-      console.log(clients, 'replies', replies.length, replies, err);
+      console.log(td, clients, 'replies', replies.length, replies, err);
       if (err) {
         resolve(null);
       }
@@ -129,7 +148,8 @@ SocketCluster.prototype.roomListen = function () {
             list.push(socket.joinInfo);
           }
         });
-        console.log(data.clients, '查询结果', JSON.stringify(list));
+
+        console.log(data.td, data.clients, '查询结果', JSON.stringify(list));
         callback && callback(list);
         break;
     }
@@ -137,6 +157,18 @@ SocketCluster.prototype.roomListen = function () {
   }
 };
 
+/**
+ * 使给定id的socket客户端断开连接M. 如果将 close 设置为true, 它也将关闭其底层等socket。
+ * 回调将会在socket客户端断开连接后调用，如果socket客户端没找到，则会返回一个 err 参数。
+ */
+SocketCluster.prototype.remoteDisconnect = function (socketId) {
+  var that = this;
+  return new Promise((resolve, reject) => {
+    socketServer.of(NameSpace.DEFAULT).adapter.remoteDisconnect(socketId, true, function(){
+      resolve(true);
+    });
+  });
+};
 
 //socket断开的处理
 SocketCluster.prototype.onDisconnect = function (socket, info) {
