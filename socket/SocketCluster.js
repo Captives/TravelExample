@@ -1,15 +1,19 @@
 const EventEmitter = require('events').EventEmitter;
+const cookie = require('cookie');
 const io = require('socket.io');
-const redis = require('socket.io-redis');
+const Redis = require('ioredis');
+const redisAdapter = require('socket.io-redis');
 const config = require('./../config/index');
 
 const log4js = require('./../config/Logger');
 const console = log4js.getLogger('SocketCluster');
-var socketServer = null;
+
 
 const NameSpace = {DEFAULT: '/'};
 module.exports = SocketCluster;
 
+var socketServer = null;
+var redisClient = null;
 /**
  * @param server  HTTPServer
  * @param path instance
@@ -17,19 +21,43 @@ module.exports = SocketCluster;
  */
 function SocketCluster(server, path) {
   var that = this;
+  redisClient = new Redis(config.redis);
   socketServer = io().listen(server, {
-    path: path, transports: ['websocket']
+    path: path,
+    transports: ['websocket'],
+    cookie:true
   });
-  socketServer.adapter(redis(config.redis));
 
-  socketServer.use(function (socket, next) {
+  socketServer.adapter(redisAdapter(config.redis));
+  //cookie
+  socketServer.use((socket, next) => {
+    var socketCookie = socket.handshake.headers.cookie || socket.request.headers.cookie;
+    console.log('socket cookie', socket.id, socketCookie);
+    if (socketCookie){ //自动登录
+      socket.cookies = cookie.parse(socketCookie);
+      //查询数据
+      redisClient.get('SESSION:' + socket.cookies.io, function(err, data){
+        if (err) {
+          console.warn('session::', err);
+        } else{
+          var json = JSON.parse(data);
+          socket.td = json.td;
+          socket.joinInfo = json.info;
+          socket.emit('connected', socket.joinInfo);
+        }
+      });
+      return next();
+    }
+    //报错给客户端
+    next(new Error('Authentication error'));
+  });
+
+  socketServer.use((socket, next) => {
     socket.address = (socket.handshake.headers['x-forwarded-for'] ||
-    socket.request.connection.remoteAddress ||
-    socket.handshake.address).replace("::ffff:", "");
+                      socket.request.connection.remoteAddress ||
+                      socket.handshake.address).replace("::ffff:", "");
     socket.ua = socket.handshake.headers['user-agent'];
     socket.query = socket.handshake.query;
-    //报错给客户端
-    //return next(new Error('Authentication error'));
     next();
   });
 
@@ -56,9 +84,8 @@ function SocketCluster(server, path) {
  */
 SocketCluster.prototype.onConnection = function (socket) {
   var that = this;
-  socket.emit('connected', socket.address, socket.ua);
   //用户加入区域
-  socket.on('join', function (name, region, callback) {
+  socket.on('join', function (name, region) {
     socket.td = region.id;
     socket.joinInfo = {
       uuid: socket.id,
@@ -67,9 +94,11 @@ SocketCluster.prototype.onConnection = function (socket) {
       name: region.label,
       userName: name
     };
+
+    redisClient.set('SESSION:' + socket.cookies.io, JSON.stringify({td:socket.td, info:socket.joinInfo}));
     console.info(socket.td, socket.joinInfo);
+    socket.emit('connected', socket.joinInfo);
     that.roomManagement(socket);
-    callback(socket.joinInfo);
   });
 
   socket.on('chat', function (text, id) {
