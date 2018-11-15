@@ -28,18 +28,21 @@
         return this.$store.state.connect;
       }
     },
+    mounted(){
+      var that = this;
+      this.$socket.on('connected', function (data) {
+        that.user = data;
+        that.login = true;
+        console.log('connected', that.user);
+      });
+
+      this.$socket.on('success', function(data){
+        that.list = data;
+      });
+    },
     methods:{
       loginHandler(name, data){
         var that = this;
-        this.$socket.on('connected', function (data) {
-          this.user = data;
-        });
-
-        this.$socket.on('success', function(data){
-          that.login = true;
-          that.list = data;
-        });
-
         console.log(name, data);
         this.$socket.emit('join', name, data);
       }

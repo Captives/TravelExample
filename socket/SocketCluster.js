@@ -38,18 +38,22 @@ function SocketCluster(server, path) {
       //查询数据
       redisClient.get('SESSION:' + socket.cookies.io, function(err, data){
         if (err) {
-          console.warn('session::', err);
-        } else{
+          console.warn('session Error', err);
+        } else {
           var json = JSON.parse(data);
-          socket.td = json.td;
-          socket.joinInfo = json.info;
-          socket.emit('connected', socket.joinInfo);
+          if (data && json) {
+            socket.td = json.td;
+            socket.joinInfo = json.info;
+          }
         }
+        return next();
       });
-      return next();
+    } else {
+      socket.request.headers.cookie['io'] = socket.id;
+      console.log(JSON.stringify(socket.request.headers));
+      // socket.request.headers.cookie['io'] = socket.id;
+      next();
     }
-    //报错给客户端
-    next(new Error('Authentication error'));
   });
 
   socketServer.use((socket, next) => {
@@ -84,6 +88,12 @@ function SocketCluster(server, path) {
  */
 SocketCluster.prototype.onConnection = function (socket) {
   var that = this;
+  //自动登录
+  if(socket.joinInfo && socket.td){
+    console.log(socket.td,'auto login', socket.id, socket.joinInfo);
+    that.roomManagement(socket);
+  }
+
   //用户加入区域
   socket.on('join', function (name, region) {
     socket.td = region.id;
@@ -95,9 +105,8 @@ SocketCluster.prototype.onConnection = function (socket) {
       userName: name
     };
 
-    redisClient.set('SESSION:' + socket.cookies.io, JSON.stringify({td:socket.td, info:socket.joinInfo}));
+    // redisClient.set('SESSION:' + socket.cookies.io, JSON.stringify({td:socket.td, info:socket.joinInfo}));
     console.info(socket.td, socket.joinInfo);
-    socket.emit('connected', socket.joinInfo);
     that.roomManagement(socket);
   });
 
@@ -118,6 +127,7 @@ SocketCluster.prototype.onConnection = function (socket) {
 SocketCluster.prototype.roomManagement = function (socket) {
   var that = this;
   that.roomListen();
+  socket.emit('connected', socket.joinInfo);
   that.getClient(socket.td).then(function (clients) {
     return that.roomMember(socket.td, clients);
   }).then(function (members) {
