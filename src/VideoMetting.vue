@@ -31,15 +31,17 @@
     methods:{
       loginHandler(name, data){
         var that = this;
-        this.$socket.emit('join', name, data, function(user){
-          that.user = user;
+        this.$socket.on('connected', function (data) {
+          this.user = data;
         });
 
         this.$socket.on('success', function(data){
           that.login = true;
           that.list = data;
         });
+
         console.log(name, data);
+        this.$socket.emit('join', name, data);
       }
     }
   }
