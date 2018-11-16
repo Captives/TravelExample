@@ -49,7 +49,7 @@ function SocketCluster(server, path) {
         return next();
       });
     } else {
-      socket.request.headers.cookie['io'] = socket.id;
+      // socket.request.headers.cookie['io'] = socket.id;
       console.log(JSON.stringify(socket.request.headers));
       // socket.request.headers.cookie['io'] = socket.id;
       next();
