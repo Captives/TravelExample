@@ -19,13 +19,6 @@ RouteHandler.prototype.search = function (req, res) {
   });
 };
 
-RouteHandler.prototype.api = function (data, res) {
-  console.log('api', data);
-  // 设置响应头部信息及编码
-  res.writeHead(200, {'Content-Type': 'text/json; charset=utf8'});
-  res.end(JSON.stringify(data));
-};
-
 RouteHandler.prototype.notFound = function (req, res) {
   res.writeHead(200, {'Content-type': 'text/html; charset=UTF-8'});
   res.end('<h1 id="time" style="text-align: center; color: #DF2828">404 页面未找到</h1>');

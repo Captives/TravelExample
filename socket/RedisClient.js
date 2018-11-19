@@ -1,7 +1,7 @@
 var redis = require('redis');
 var conf = require('./../config/index');
-// var log4js = require('./../conf/Logger');
-// var console = log4js.getLogger('other');
+var log4js = require('./../conf/Logger');
+var console = log4js.getLogger('other');
 var RedisClient = {
   create:(options) => {
     return new Promise((resolve, reject)=>{

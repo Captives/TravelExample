@@ -17,19 +17,19 @@ export default new Router({
     path: '/',
     name: 'Home',
     component: Home
-  },{
+  }, {
     path: '/login',
     name: 'Login',
     component: Login
-  },{
+  }, {
     path: '/about',
     name: 'About',
     component: About
-  },{
+  }, {
     path: '/city',
     name: 'City',
     component: City
-  },{
+  }, {
     path: '/chat',
     name: 'Chat',
     component: Chat
@@ -37,11 +37,11 @@ export default new Router({
     path: '/detail/:id',
     name: 'Detail',
     component: Detail
-  },{
+  }, {
     path: '/goods/:id',
     name: 'Goods',
     component: Goods
-  },{
+  }, {
     path: '*',
     name: 'NotFound',
     component: NotFound

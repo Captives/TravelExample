@@ -3,14 +3,14 @@
   <el-form class="login-panel" ref="form" :model="form" label-width="80px">
     <el-form-item label="房间">
       <el-select filterable v-model="form.region" placeholder="请选择活动区域" @change="selectHandler">
-        <el-option v-for="item in form.list" :label="item.label"
+        <el-option v-for="item in form.list" :label="item.name"
                    :value="item.id" :key="item.id"></el-option>
       </el-select>
     </el-form-item>
 
     <el-form-item label="昵称">
         <el-input v-model="form.name" @input="changeHandler" placeholder="请输入昵称"></el-input>
-        <span class="danger" v-if="error">{{error}}</span>
+        <span class="danger" v-if="error || errorTip">{{error || errorTip}}</span>
     </el-form-item>
 
     <el-form-item>
@@ -23,22 +23,23 @@
 <script>
   export default {
     name: 'LoginPage',
+    props:['error'],
     data() {
       return {
         form: {
           name: '',
           region: '',
           list:[
-            {id:1001, label:'大唐名探'},
-            {id:1002, label:'逆流之时'},
-            {id:1003, label:'天命之女'},
-            {id:1004, label:'冰雪之华'},
-            {id:1005, label:'天命之女'},
-            {id:1006, label:'女帝辉光'},
-            {id:1007, label:'女帝威严'}
+            {id:1001, name:'大唐名探'},
+            {id:1002, name:'逆流之时'},
+            {id:1003, name:'天命之女'},
+            {id:1004, name:'冰雪之华'},
+            {id:1005, name:'天命之女'},
+            {id:1006, name:'女帝辉光'},
+            {id:1007, name:'女帝威严'}
           ]
         },
-        error:""
+        errorTip:''
       }
     },
     methods:{

@@ -1,19 +1,17 @@
 const EventEmitter = require('events').EventEmitter;
 const cookie = require('cookie');
 const io = require('socket.io');
-const Redis = require('ioredis');
+const DBHandler = require('../socket/DBHandler');
 const redisAdapter = require('socket.io-redis');
 const config = require('./../config/index');
-
 const log4js = require('./../config/Logger');
 const console = log4js.getLogger('SocketCluster');
-
 
 const NameSpace = {DEFAULT: '/'};
 module.exports = SocketCluster;
 
+var db = null;
 var socketServer = null;
-var redisClient = null;
 /**
  * @param server  HTTPServer
  * @param path instance
@@ -21,41 +19,9 @@ var redisClient = null;
  */
 function SocketCluster(server, path) {
   var that = this;
-  redisClient = new Redis(config.redis);
-  socketServer = io().listen(server, {
-    path: path,
-    transports: ['websocket'],
-    cookie:true
-  });
-
+  db = new DBHandler(config.redis);
+  socketServer = io().listen(server, {path: path, transports: ['websocket'], cookie: true});
   socketServer.adapter(redisAdapter(config.redis));
-  //cookie
-  socketServer.use((socket, next) => {
-    var socketCookie = socket.handshake.headers.cookie || socket.request.headers.cookie;
-    console.log('socket cookie', socket.id, socketCookie);
-    if (socketCookie){ //自动登录
-      socket.cookies = cookie.parse(socketCookie);
-      //查询数据
-      redisClient.get('SESSION:' + socket.cookies.io, function(err, data){
-        if (err) {
-          console.warn('session Error', err);
-        } else {
-          var json = JSON.parse(data);
-          if (data && json) {
-            socket.td = json.td;
-            socket.joinInfo = json.info;
-          }
-        }
-        return next();
-      });
-    } else {
-      // socket.request.headers.cookie['io'] = socket.id;
-      console.log(JSON.stringify(socket.request.headers));
-      // socket.request.headers.cookie['io'] = socket.id;
-      next();
-    }
-  });
-
   socketServer.use((socket, next) => {
     socket.address = (socket.handshake.headers['x-forwarded-for'] ||
                       socket.request.connection.remoteAddress ||
@@ -88,26 +54,28 @@ function SocketCluster(server, path) {
  */
 SocketCluster.prototype.onConnection = function (socket) {
   var that = this;
-  //自动登录
-  if(socket.joinInfo && socket.td){
-    console.log(socket.td,'auto login', socket.id, socket.joinInfo);
-    that.roomManagement(socket);
-  }
-
   //用户加入区域
-  socket.on('join', function (name, region) {
-    socket.td = region.id;
-    socket.joinInfo = {
-      uuid: socket.id,
-      pid: process.pid,
-      id: region.id,
-      name: region.label,
-      userName: name
-    };
-
-    // redisClient.set('SESSION:' + socket.cookies.io, JSON.stringify({td:socket.td, info:socket.joinInfo}));
-    console.info(socket.td, socket.joinInfo);
-    that.roomManagement(socket);
+  socket.on('join', function (td, token) {
+    if (td && token) {
+      db.findUser(td, token, function (json) {
+        if (json) {
+          socket.td = td;
+          socket.joinInfo = {
+            uuid: socket.id,
+            pid: process.pid,
+            id: json.td,
+            name: json.name,
+            userName: json.userName
+          };
+          console.info(socket.td, socket.joinInfo);
+          that.roomManagement(socket);
+        } else {
+          socket.emit('enterReject', {code: 1002, info: "登录超时,请重新登录"});
+        }
+      });
+    } else {
+      socket.emit('enterReject', {code: 1001, info: "信息登入失败,请重新登录"});
+    }
   });
 
   socket.on('chat', function (text, id) {
