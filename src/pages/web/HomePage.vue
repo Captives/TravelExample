@@ -2,7 +2,25 @@
 <template>
     <div class="wrapper">
       <el-container>
-        <el-header> 你好{{userInfo.userName}}, 欢迎来到{{userInfo.name}}</el-header>
+        <el-header>
+          <el-row :gutter="24">
+            <el-col :span="22">
+              你好{{userInfo.userName}}, 欢迎来到{{userInfo.name}}
+            </el-col>
+            <el-col :span="2">
+                <el-dropdown @command="dropchangeHandler">
+                  <span class="el-dropdown-link">
+                        下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item @command="dropchangeHandler">个人信息</el-dropdown-item>
+                    <el-dropdown-item>更改区域</el-dropdown-item>
+                    <el-dropdown-item divided>退出聊天</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </el-col>
+          </el-row>
+        </el-header>
         <el-container>
           <el-container>
             <el-main class="scroll">
@@ -103,6 +121,9 @@
         },
         sendToUser(item){
           this.select = item ? item.uuid : '';
+        },
+        dropchangeHandler(text){
+          console.log(text);
         }
       }
     }

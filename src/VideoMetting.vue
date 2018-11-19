@@ -1,4 +1,5 @@
 <template>
+  <!-- http://element.eleme.io -->
   <div class="wrapper">
     <span class="srvinfo" v-if="!this.$store.state.connect">
       请先连接服务器 {{show ? 'true' : 'false'}}- {{this.$store.state.connect}}
