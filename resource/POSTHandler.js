@@ -1,8 +1,11 @@
 const DBHandler = require('../socket/DBHandler');
 const config = require('./../config/index');
 const uuid = require('uuid/v4');
-module.exports = POSTHandler;
 
+const log4js = require('../config/Logger');
+const console= log4js.getLogger('index');
+
+module.exports = POSTHandler;
 var db = null;
 function POSTHandler() {
   db = new DBHandler(config.redis);

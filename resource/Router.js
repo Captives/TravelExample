@@ -3,6 +3,8 @@ var POSTHandler = require('./POSTHandler');
 var querystring = require('querystring');
 var url = require('url');
 
+const log4js = require('../config/Logger');
+const console= log4js.getLogger('index');
 const handler = new POSTHandler();
 function Router() {
 
